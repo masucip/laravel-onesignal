@@ -218,7 +218,13 @@ class OneSignalClient
     public function sendNotificationCustom($parameters = []){
         $this->requiresAuth();
         $this->usesJSON();
-
+        // By Sucipto
+        if ($parameters['api_key']) {
+            $this->headers['headers']['Authorization'] = 'Basic '.$parameters['api_key'];
+        }
+        if (!$parameters['app_id']) {
+            $parameters['app_id'] = $this->appId;
+        }
         // Make sure to use app_id
         $parameters['app_id'] = $this->appId;
 
